@@ -6,6 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "outDir": "./dist",
+    "rootDir": "./src",
     "strict": false,
     "skipLibCheck": true,
     "resolveJsonModule": true
