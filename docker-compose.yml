@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: cafeteria_db
+    restart: always
+    environment:
+      POSTGRES_USER: cafeuser
+      POSTGRES_PASSWORD: cafepass
+      POSTGRES_DB: cafeteriadb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: ./api
+    container_name: cafeteria_api
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://cafeuser:cafepass@db:5432/cafeteriadb
+      JWT_SECRET: mysecretkey123
+      AI_ENABLED: "true"
+      OPENAI_API_KEY: "your-openai-key-here"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
